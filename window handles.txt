@@ -1,0 +1,193 @@
+getWindowHandle() - parent window ID
+getWindowHandles()-all windows id
+
+1st Program
+
+for(String s:allWindowsID) {
+	if(!parentID.equals(s)) {
+	driver.switchTo().window(s);
+	}
+
+2nd Program
+
+Set<String> allWindowsID = driver.getWindowHandles();
+ArrayList<String> l=new ArrayList<String>(allWindowsID);
+driver.switchTo().window(l.get(2));
+
+---------------------------------------------------
+
+
+with for loop
+--------------
+
+package org.emp;
+
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class HDFCBank {
+	public static void main(String[] args) throws Throwable {
+		System.setProperty("webdriver.chrome.driver",
+				"C:\\Users\\Vengat\\workspace\\Selenium\\driver\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://www.amazon.in/s?k=mobiles&ref=nb_sb_noss%22);
+
+		Thread.sleep(2000);
+		
+		
+		String parentID = driver.getWindowHandle();
+		
+		WebElement x = driver.findElement(By.xpath("//span[contains(text(),'Samsung Galaxy M12')]"));
+
+		x.click();
+
+		Thread.sleep(2000);
+		
+		Set<String> allWindowsID = driver.getWindowHandles();
+		
+		for(String s:allWindowsID) {
+			
+			if(!parentID.equals(s)) {
+				
+				driver.switchTo().window(s);
+				
+			}
+		}
+
+		
+
+		Thread.sleep(2000);
+		String price = driver.findElement(By.xpath("//span[@id='priceblock_ourprice']")).getText();
+
+		System.out.println(price);
+		
+		
+		driver.close();
+		
+		driver.switchTo().window(parentID);
+	}
+}
+
+
+with list:
+-----------
+package org.emp;
+
+import java.util.ArrayList;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class HDFCBank {
+	public static void main(String[] args) throws Throwable {
+		System.setProperty("webdriver.chrome.driver",
+				"C:\\Users\\Vengat\\workspace\\Selenium\\driver\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://www.amazon.in/s?k=mobiles&ref=nb_sb_noss");
+
+		Thread.sleep(2000);
+		
+		
+		String parentID = driver.getWindowHandle();
+		
+		WebElement x = driver.findElement(By.xpath("//span[contains(text(),'Samsung Galaxy M12')]"));
+
+		x.click();
+
+		Thread.sleep(2000);
+		
+		Set<String> allWindowsID = driver.getWindowHandles();
+		
+		ArrayList<String> l=new ArrayList<String>(allWindowsID);
+		
+		Thread.sleep(2000);
+		driver.switchTo().window(l.get(2));
+		
+		
+
+		Thread.sleep(2000);
+		String price = driver.findElement(By.xpath("//span[@id='priceblock_ourprice']")).getText();
+
+		System.out.println(price);
+		
+		
+		driver.close();
+		
+		driver.switchTo().window(parentID);
+	}
+}
+
+
+with title:
+-----------
+
+package org.emp;
+
+import java.util.ArrayList;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class HDFCBank {
+	public static void main(String[] args) throws Throwable {
+		System.setProperty("webdriver.chrome.driver",
+				"C:\\Users\\Vengat\\workspace\\Selenium\\driver\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+
+		driver.manage().window().maximize();
+		driver.get("https://www.amazon.in/s?k=mobiles&ref=nb_sb_noss");
+
+		Thread.sleep(2000);
+		
+		
+		String parentID = driver.getWindowHandle();
+		
+		WebElement x = driver.findElement(By.xpath("//span[contains(text(),'Samsung Galaxy M12')]"));
+
+		x.click();
+
+		Thread.sleep(2000);
+		
+		Set<String> allWindowsID = driver.getWindowHandles();
+		
+		for (String s : allWindowsID) {
+			
+			if(driver.switchTo().window(s).getTitle().equals("Samsung Galaxy M12 (Blue,6GB RAM, 128GB Storage) 6 Months Free Screen Replacement for Prime : Amazon.in: Electronics")) {
+				
+				
+				driver.switchTo().window(s);
+				break;
+			}
+		
+				
+				
+		}
+		
+		
+
+		Thread.sleep(2000);
+		String price = driver.findElement(By.xpath("//span[@id='priceblock_ourprice']")).getText();
+
+		System.out.println(price);
+		
+		
+		driver.close();
+		
+		driver.switchTo().window(parentID);
+	}
+}
+
+
+
